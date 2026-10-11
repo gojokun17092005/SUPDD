@@ -1,225 +1,208 @@
 # 🏙️ Smart Urban Planning Decision Support System (DSS)
 
-A human-centered, multi-domain **Municipal Decision Support System & Policy Simulator** that helps urban planners, municipal authorities, and civil engineers understand city conditions, evaluate infrastructure health, check statutory compliance, and explore what thoughtful planning can do for residents.
+A human-centred, multi-domain **Municipal Decision Support System** that helps urban planners, municipal authorities, and civil engineers understand city conditions, evaluate infrastructure health, check planning benchmark compliance, and decide what to do next.
 
-The system combines a **rule-based analytics engine** with a **Random Forest Machine Learning model** in a hybrid architecture — each engine runs independently and presents its results separately.
+The system uses a **transparent, rule-based assessment engine**. There is no machine-learning model. Every result — risk classification, domain score, and benchmark check — is derived from explicit thresholds and formulas that you can read and verify.
 
 ---
 
 ## 🌟 Key Features
 
-* **👋 Human-Centered Dashboard**: Conversational language, friendly insights, and plain-English explanations designed for real people — not just data engineers.
-* **🎛️ 20-Parameter Urban Modeler**: Explore city conditions across 8 planning domains with real-time interactive sliders.
-* **🚨 Rule-Based Stress Classifier**: Automated urban stress index (0–100) and urgency classification (**Critical**, **High**, **Moderate**, **Low**) based on documented planning thresholds.
-* **🤖 ML Urban Risk Prediction**: A Random Forest classifier that predicts urban risk (Low, Moderate, High, Critical) from the 20 input features.
-* **💡 Human Insights Generator**: Automatically surfaces the most important findings in plain language (e.g., *"Clean air needs attention"* instead of *"AQI: 225"*).
-* **📊 8-Domain Equilibrium Radar**: Chart.js radar chart with a dynamic story interpreting the shape.
-* **📜 Statutory Compliance Check**: Benchmark verification against **MoHUA**, **URDPFI 2014**, **CPCB**, **WHO**, and **NDMA** guidelines.
-* **🏗️ Actionable Project Recommendations**: Prioritized capital projects with plain-language explanations of *why* each matters to residents.
-* **🗺️ Spatial Zoning Simulator**: HTML5 Canvas rendering of residential, commercial, green buffer, and transit zones.
+* **👋 Human-Centred Dashboard**: Conversational language, friendly insights, and plain-English explanations.
+* **🔢 20-Parameter Input Form**: Enter precise values for each planning parameter across 8 domains using standard numeric input fields.
+* **🚨 Rule-Based Risk Classifier**: Urban Stress Index (0–100) and urgency classification — **Critical**, **High**, **Moderate**, or **Low** — derived from documented, configurable thresholds.
+* **💡 Key Insights Generator**: Automatically surfaces the most important findings in plain language.
+* **📊 8-Domain Equilibrium Radar**: Chart.js radar chart with a dynamic narrative interpreting the sector shape.
+* **📜 Planning Benchmark Checks**: Comparison against published reference guidelines (MoHUA, URDPFI 2014, CPCB, WHO, NDMA). *Not a formal statutory compliance determination.*
+* **🏗️ Actionable Recommendations**: Prioritised capital projects with plain-English reasons.
+* **🗺️ Spatial Zoning Sketch**: HTML5 Canvas visualisation of residential, commercial, green buffer, and transit zones.
+* **⚖️ What-if Comparison**: Compare your current assessment against any preset scenario side-by-side.
+* **✅ Input Validation**: Each numeric field shows its allowed range, and inline error messages appear on out-of-range entries.
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer | Technology | Purpose |
-| :--- | :--- | :--- |
-| **Frontend** | HTML5, CSS3, Vanilla JS (ES6+) | Dashboard, sliders, visualizations |
-| **Visualization** | Chart.js (CDN) & HTML5 Canvas | Radar chart & spatial zoning map |
-| **Backend** | Node.js, Express.js | REST API & rule-based analytics engine |
-| **ML Service** | Python 3, FastAPI, uvicorn | Random Forest prediction API |
-| **ML Model** | scikit-learn `RandomForestClassifier` | Urban risk classification |
-| **ML Pipeline** | pandas, NumPy, joblib | Data preprocessing & model persistence |
-| **Data Format** | JSON | API communication |
+| Layer           | Technology                   | Purpose                                          |
+|:----------------|:-----------------------------|:-------------------------------------------------|
+| **Frontend**    | HTML5, CSS3, Vanilla JS      | Dashboard, parameter forms, visualisations       |
+| **Visualisation** | Chart.js (CDN) & Canvas    | Radar chart & spatial zoning sketch              |
+| **Backend**     | Node.js 18+, Express 4       | REST API & rule-based assessment engine          |
+| **Data format** | JSON                         | API communication                                |
+
+> **No Python, no scikit-learn, no ML service.** The entire system runs with a single `npm start`.
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-smart-urban-planning-dss/
-├── package.json          # Node.js dependencies & scripts
-├── server.js             # Express server & rule-based analytics engine
-├── README.md             # Documentation
-├── public/
-│   ├── index.html        # Human-centered dashboard UI
-│   ├── style.css         # Minimalist light theme & layout
-│   └── script.js         # Event handling, API calls, charts & canvas
-└── ml/
-    ├── requirements.txt  # Python ML dependencies
-    ├── data/
-    │   └── synthetic_urban_data.csv   # Development dataset (synthetic)
-    ├── models/
-    │   ├── urban_risk_rf_pipeline.pkl # Trained model pipeline
-    │   └── model_metadata.json        # Evaluation metrics & feature schema
-    └── src/
-        ├── train.py      # Data generation, preprocessing & training
-        └── predict.py    # FastAPI prediction service
+SmartUrbanPlanningDecisionSystem/
+├── package.json          # Node.js dependencies & start scripts
+├── server.js             # Express server & rule-based assessment engine
+├── README.md             # This file
+└── public/
+    ├── index.html        # Dashboard UI
+    ├── style.css         # Light-theme stylesheet
+    └── script.js         # Event handling, API calls, charts, canvas, fallback engine
 ```
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+* **Node.js** v18 or later
+* **npm** (bundled with Node.js)
+
+### Step 1 — Install dependencies
+```bash
+npm install
+```
+
+### Step 2 — Start the server
+```bash
+npm start
+```
+
+### Step 3 — Open the dashboard
+```
+http://localhost:5000
+```
+
+That's it. No Python environment, no model training, no second terminal.
 
 ---
 
 ## 📑 20 Urban Planning Parameters & 8 Core Domains
 
 ### 1. People & Population (Demographic)
-* **Population Density** (`cap/km²`): 1,000–35,000 (URDPFI benchmark: 6,000–15,000).
-* **Population Growth Rate** (`%/yr`): -2.0%–8.0% (Sustainable target: 1.0–2.5%).
+| Parameter | Unit | Range | Default |
+|---|---|---|---|
+| Population Density | cap/km² | 1,000 – 35,000 | 12,500 |
+| Population Growth Rate | %/yr | −2.0 – 8.0 | 2.4 |
 
 ### 2. Land & Zoning (Land Use)
-* **Built-up Area %** (`%`): 10%–90% (Balanced norm: 50–65%).
-* **Vacant Land %** (`%`): 0%–60% (Strategic reserve: 10–20%).
-* **Residential Land %** (`%`): 10%–80% (URDPFI norm: 40–50%).
-* **Commercial Land %** (`%`): 2%–50% (URDPFI norm: 12–20%).
+| Parameter | Unit | Range | Default |
+|---|---|---|---|
+| Built-up Area | % | 10 – 90 | 62 |
+| Vacant Land | % | 0 – 60 | 12 |
+| Residential Land | % | 10 – 80 | 45 |
+| Commercial Land | % | 2 – 50 | 18 |
 
 ### 3. Roads & Transit (Transport)
-* **Road Density** (`km/km²`): 2.0–25.0 (URDPFI guideline: 10–18).
-* **Traffic Congestion Index** (`% delay`): 10%–95% (Target: ≤ 35%).
-* **Public Transit Accessibility** (`/100`): 10–100 (TOD standard: ≥ 75).
+| Parameter | Unit | Range | Default |
+|---|---|---|---|
+| Road Density | km/km² | 2 – 25 | 11.5 |
+| Traffic Congestion | % delay | 10 – 95 | 48 |
+| Public Transit Accessibility | /100 | 10 – 100 | 65 |
 
 ### 4. Basic Utilities (Infrastructure)
-* **Water Supply Coverage** (`%`): 20%–100% (MoHUA SLB: 100% @ 135 lpcd).
-* **Sewerage Coverage** (`%`): 10%–100% (MoHUA SLB: 100% underground).
-* **Waste Management Coverage** (`%`): 20%–100% (CPCB / Swachh Bharat: 100%).
+| Parameter | Unit | Range | Default |
+|---|---|---|---|
+| Water Supply Coverage | % | 20 – 100 | 82 |
+| Sewerage Coverage | % | 10 – 100 | 72 |
+| Waste Management Coverage | % | 20 – 100 | 76 |
 
 ### 5. Nature & Air (Environment)
-* **Air Quality Index (AQI)**: 20–500 (CPCB/WHO satisfactory threshold: ≤ 100).
-* **Green Space %** (`%`): 2.0%–45.0% (URDPFI & WHO norm: ≥ 15%).
+| Parameter | Unit | Range | Default |
+|---|---|---|---|
+| Air Quality Index (AQI) | AQI | 20 – 500 | 135 |
+| Green Space | % | 2 – 45 | 14.5 |
 
 ### 6. Safety & Risks (Disaster Resilience)
-* **Flood Risk Index** (`/100`): 0–100 (NDMA safety threshold: < 25).
+| Parameter | Unit | Range | Default |
+|---|---|---|---|
+| Flood Risk Index | /100 | 0 – 100 | 32 |
 
 ### 7. Schools & Hospitals (Public Services)
-* **Distance to Hospital** (`km`): 0.3–15.0 km (URDPFI healthcare norm: ≤ 3.0 km).
-* **Distance to School** (`km`): 0.2–6.0 km (15-minute neighborhood norm: ≤ 1.0 km).
+| Parameter | Unit | Range | Default |
+|---|---|---|---|
+| Distance to Hospital | km | 0.3 – 15 | 2.4 |
+| Distance to School | km | 0.2 – 6 | 0.9 |
 
 ### 8. Money & Costs (Economic Viability)
-* **Average Monthly Household Income** (`₹k/mo`): ₹15k–₹250k.
-* **Land Market Valuation** (`₹k/m²`): ₹10k–₹300k.
-* **Infrastructure Capital Cost Index** (`₹Cr/km²`): ₹10Cr–₹200Cr.
+| Parameter | Unit | Range | Default |
+|---|---|---|---|
+| Average Monthly Household Income | ₹k/mo | 15 – 250 | 68 |
+| Land Market Valuation | ₹k/m² | 10 – 300 | 85 |
+| Infrastructure Capital Cost Index | ₹Cr/km² | 10 – 200 | 48 |
 
 ---
 
-## 🚀 Quick Start Guide
+## 🧠 How the Assessment Engine Works
 
-### Prerequisites
-* **Node.js** v18+
-* **Python** v3.8+
-* **npm** and **pip**
+The engine runs entirely in Node.js (with a mirrored client-side fallback for offline use). It does not involve any machine-learning model.
 
-### Step 1: Install Node.js Dependencies
-```bash
-npm install
-```
+### Step 1 — Input validation & clamping
+Each of the 20 parameters is validated against its allowed range. Out-of-range values are clamped so a result is always produced; validation warnings are included in the API response.
 
-### Step 2: Install Python ML Dependencies
-```bash
-cd ml
-pip install -r requirements.txt
-```
+### Step 2 — Domain scores (0–100)
+Eight weighted domain scores are calculated from the input parameters using explicit formulas:
 
-### Step 3: Train the Random Forest Model
-```bash
-cd ml/src
-python train.py
-```
-> ⚠️ **Note:** The model is currently trained on **synthetic development data**. This means predictions are illustrative only and should not be used for real-world planning decisions. To use real data, replace `ml/data/synthetic_urban_data.csv` with a real labeled dataset and re-run training.
-
-### Step 4: Start the ML Prediction Service (Terminal 1)
-```bash
-cd ml/src
-python predict.py
-```
-The FastAPI service will start at `http://127.0.0.1:8000`.
-
-### Step 5: Start the Node.js Server (Terminal 2)
-```bash
-npm start
-```
-
-### Step 6: Open the Dashboard
-```
-http://localhost:5000
-```
-
----
-
-## 🧠 Hybrid Architecture
-
-The system uses two **independent** engines that run in parallel and present results separately. The ML model is **never** used as a substitute for the rule-based engine's output.
-
-```
-Browser (Dashboard)
-       │
-       ▼
-Node.js / Express (Port 5000)
-  ├── Rule-Based Analytics Engine   → Stress Index, Domain Scores, Benchmarks, Projects
-  └── Calls Python ML Service ──►  FastAPI (Port 8000)
-                                     └── RandomForestClassifier
-                                          └── Predicted Risk + Class Probabilities
-```
-
-| Engine | Technology | Output |
-|---|---|---|
-| Rule-Based | Node.js | Stress Index, 8 Domain Scores, Benchmark Gaps, Urgency Level |
-| Machine Learning | Python / scikit-learn | Predicted Risk Class, Per-Class Probabilities, Model Status |
-
----
-
-## 🤖 Machine Learning Details
-
-### Problem Definition
-**Urban Risk Classification**: Given 20 urban planning parameters, predict a risk level of **Low**, **Moderate**, **High**, or **Critical**.
-
-### Dataset
-* **Type**: Synthetic development data (2,000 observations).
-* **Purpose**: Pipeline testing and development only.
-* **Disclaimer**: Results do **not** demonstrate real-world predictive accuracy.
-* **To use real data**: Replace `ml/data/synthetic_urban_data.csv` with a properly labeled dataset and retrain.
-
-### Model Evaluation (Synthetic Data — Development Only)
-| Metric | Score |
+| Domain | Key parameters used |
 |---|---|
-| Accuracy | ~81% |
-| Weighted Precision | ~81% |
-| Weighted Recall | ~81% |
-| Weighted F1-Score | ~80% |
+| Demographic | Population density, growth rate |
+| Land Use | Built-up area, vacant land |
+| Transport | Road density, congestion, transit access |
+| Infrastructure | Water, sewerage, waste management coverage |
+| Environment | AQI, green space |
+| Disaster | Flood risk index |
+| Public Services | Distance to hospital, distance to school |
+| Economic | Income/land-price ratio, infrastructure cost |
 
-These figures are based on a held-out 20% test split from the synthetic dataset.
+### Step 3 — Urban Stress Index (0–100)
+Six indicators (AQI, green space, water, sewerage, congestion, flood risk) each contribute penalty points when they fall outside acceptable thresholds. The sum (capped at 100) is the Stress Index.
+
+### Step 4 — Risk classification
+| Stress Index | Risk Level |
+|---|---|
+| 0 – 19 | Low |
+| 20 – 37 | Moderate |
+| 38 – 59 | High |
+| 60 – 100 | Critical |
+
+### Step 5 — Benchmark checks
+Six key indicators are compared against published planning reference targets and labelled Pass / Needs Improvement / Significant Gap.
+
+### Step 6 — Recommendations
+Five capital project types are prioritised (Critical / High / Medium / Low) based on the individual parameter values.
 
 ---
 
-## 📡 REST API Documentation
+## 📡 REST API
 
-### POST `/api/predict`
-**Headers**: `Content-Type: application/json`
+### `POST /api/predict`
+**Headers:** `Content-Type: application/json`
 
-#### Sample Request:
+**Request body:** any subset of the 20 parameter keys. Missing keys fall back to defaults.
+
+**Sample request:**
 ```json
 {
   "populationDensity": 22000,
   "trafficCongestion": 72,
   "waterSupplyCoverage": 92,
-  "sewerageCoverage": 88,
   "aqi": 185,
   "greenSpacePct": 6.5,
   "floodRisk": 38
 }
 ```
 
-#### Sample Response (extended with ML):
+**Sample response:**
 ```json
 {
   "params": { "...all 20 parameters with defaults applied..." },
   "urgency": {
-    "level": "High",
-    "stressIndex": 48,
+    "riskLevel": "High",
+    "stressIndex": 43,
     "explanation": "Elevated pressure: traffic congestion (72% delay)..."
   },
   "compositeInfrastructureScore": 74,
   "equilibriumDimensions": {
-    "demographic": 78, "landUse": 85, "transport": 72,
-    "infrastructure": 88, "environment": 52, "disaster": 62,
-    "publicServices": 95, "economic": 92
+    "demographic": 78, "landUse": 85, "transport": 55,
+    "infrastructure": 88, "environment": 48, "disaster": 62,
+    "publicServices": 95, "economic": 72
   },
   "benchmarks": [
     { "name": "Water Supply Coverage", "target": "100%", "current": "92%", "status": "Moderate Deficit" }
@@ -227,59 +210,55 @@ These figures are based on a held-out 20% test split from the synthetic dataset.
   "projects": [
     { "name": "Universal Potable Water Pipeline", "priority": "High", "impact": "Eliminates 8% water deficit." }
   ],
-  "mlAnalytics": {
-    "predicted_risk": "High",
-    "class_probabilities": {
-      "Low": 0.05, "Moderate": 0.20, "High": 0.60, "Critical": 0.15
-    },
-    "model_version": "1.0",
-    "model_status": "trained",
-    "data_status": "synthetic_development_data_only",
-    "disclaimer": "Model trained on synthetic data. Predictions are illustrative only."
-  }
+  "validationWarnings": []
 }
 ```
 
-> If the ML service is unavailable, `mlAnalytics` will contain `{ "error": "ML Service Unreachable" }`. All rule-based outputs continue to work normally.
-
-### GET `/api/health`
+### `GET /api/health`
 ```json
 {
   "status": "ONLINE",
   "service": "Smart Urban Planning DSS",
-  "mlService": "ONLINE",
-  "timestamp": "2026-10-09T00:00:00.000Z"
+  "engine": "rule-based",
+  "timestamp": "2026-10-11T00:00:00.000Z"
 }
 ```
 
 ---
 
-## ⚖️ Statutory Standards Reference
+## ⚖️ Planning Benchmark References
 
-* **URDPFI Guidelines (2014)** — Urban & Regional Development Plans Formulation, Ministry of Housing and Urban Affairs.
-* **MoHUA Service Level Benchmarks** — Universal water supply (135 lpcd), 100% underground sewerage.
-* **CPCB Air Quality Standards** — NAAQS & WHO Guidelines (≤ 100 AQI satisfactory).
-* **NDMA Urban Flood Guidelines** — Stormwater retention benchmarks.
+| Benchmark | Reference |
+|---|---|
+| Water Supply Coverage (100%) | MoHUA Service Level Benchmarks — 135 lpcd universal coverage |
+| Sewerage Coverage (100%) | MoHUA SLB — 100% underground network |
+| Air Quality Index (≤ 100) | CPCB NAAQS & WHO Air Quality Guidelines |
+| Green Space (≥ 15%) | URDPFI Guidelines 2014 & WHO urban green space norm |
+| Traffic Congestion (≤ 35%) | Project-defined threshold |
+| Flood Risk Index (< 25) | NDMA Urban Flood Management Guidelines |
 
-> **Important**: Benchmarks shown in the dashboard are based on the above published planning guidelines. They are not verified legal compliance determinations. Always consult a qualified planner or authority for statutory decisions.
+> **Important:** Benchmark checks shown in the dashboard are based on published planning reference guidelines. They are **not** verified legal compliance determinations. Always consult a qualified planner or statutory authority for formal decisions.
 
 ---
 
-## 🔮 Known Limitations & Next Steps
+## ⚠️ Known Limitations
 
-* The ML model is trained on **synthetic data** — not real-world urban datasets. Replace with authoritative labeled data (e.g., Census of India, smart city sensor data) for production use.
-* Feature importance is a **global model-level measure** of variable contribution, not proof of causation.
-* ML risk predictions should **not** be used as a substitute for statutory compliance checks.
+* All thresholds in the rule-based engine are configurable development defaults — they are informed by published guidelines but are not automatically updated when regulations change.
+* The zoning canvas is a schematic illustration based on percentage inputs, not a real spatial model.
+* The stress index and domain scores are aggregate indicators intended to guide attention, not to substitute for detailed engineering surveys or legal planning assessments.
 
-**Future improvements:**
-- Integrate real labeled urban datasets.
-- Add SHAP-based local explanations per prediction.
-- Export reports as PDF.
-- Multi-city comparison mode.
+---
+
+## 🔮 Possible Future Improvements
+
+* Export assessment results as a PDF report.
+* Multi-city comparison with persistent storage.
+* Configurable thresholds via a settings panel.
+* Integration with real open-data sources (Census of India, smart city APIs).
 
 ---
 
 ## 📜 License & Acknowledgments
 
-* Developed for **Smart Urban Planning & Municipal Decision Support**.
-* Built using open web standards: HTML5, CSS3, ES6+, Express.js, Python, scikit-learn, FastAPI.
+* Developed for Smart Urban Planning & Municipal Decision Support education and exploration.
+* Built using open web standards: HTML5, CSS3, ES6+, Express.js, Chart.js.
